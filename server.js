@@ -1,7 +1,8 @@
 // Set up Express app
 const express = require('express');
 const app = express();
-const request = require('request');
+// const request = require('request');
+const axios = require('axios'); // Import axios
 const PORT = 2121 || process.env.PORT;
 
 
@@ -21,25 +22,22 @@ app.use('/', mainRoutes);
 
 
 // Set up GET request to Nutrition API
-app.get('/nutrition', (req, res) => {
+app.get('/getNutrition', (req, res) => {
     const query = req.query.food;
+    const apiKey = process.env.YOUR_API_KEY; // Replace with your API key
 
-    request.get({
-        url: 'https://api.calorieninjas.com/v1/nutrition?query=' + query,
+    axios.get(`https://api.calorieninjas.com/v1/nutrition?query=${encodeURIComponent(query)}`, {
         headers: {
-            'X-Api-Key': process.env.YOUR_API_KEY
+            'X-Api-Key': apiKey,
         },
-    }, (error, response, body) => {
-        if (error) {
-            console.error('Request failed:', error);
-            res.status(500).json({ error: 'Request to external API failed' }); // Send error message to client
-        } else if (response.statusCode !== 200) {
-            console.error('Error:', response.statusCode, body.toString('utf8'));
-            res.status(response.statusCode).json({ error: 'Request to external API failed' }); // Send error message to client
-        } else {
-            const nutritionData = JSON.parse(body);
-            res.json(nutritionData); // Send data to client
-        }
+    })
+    .then(response => {
+        const nutritionData = response.data;
+        res.json(nutritionData); // Send data to client
+    })
+    .catch(error => {
+        console.error('Error fetching nutrition data:', error);
+        res.status(500).json({ error: 'Error fetching nutrition data' }); // Send error message to client
     });
 });
 

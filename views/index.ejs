@@ -11,13 +11,44 @@
     <h2 class="calories">Get your calories here!</h2>
 
     <main>
-        <form action="/food" method="POST">
+        <form id="nutritionForm">
             <label for="food">Enter Food:</label>
             <input type="text" name="food" id="food" placeholder="E.g., Pizza, Grilled Chicken, Oatmeal, etc." required>
             <button type="submit">Calculate calories</button>
         </form>
+
+        <!-- Display nutrition data here -->
+        <div id="nutritionResult"></div>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nutritionForm = document.getElementById('nutritionForm');
+            const nutritionResult = document.getElementById('nutritionResult');
 
+            nutritionForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const foodQuery = document.getElementById('food').value;
+
+                fetch(`/getNutrition?food=${encodeURIComponent(foodQuery)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle and display nutrition data here
+                        const nutritionHTML = `
+                            <p>Calories: ${data.calories.toFixed(2)}</p>
+                            <p>Protein: ${data.protein.toFixed(2)}g</p>
+                            <p>Fat: ${data.fat.toFixed(2)}g</p>
+                            <p>Carbohydrates: ${data.carbohydrates.toFixed(2)}g</p>
+                        `;
+                        nutritionResult.innerHTML = nutritionHTML;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching nutrition data:', error);
+                        nutritionResult.innerHTML = '<p>Error fetching nutrition data.</p>';
+                    });
+            });
+        });
+    </script>
 </body>
 </html>
