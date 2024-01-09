@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Nutrition Calculator</h1>
-    <h2>Get your calories here!</h2>
-    <input type="text" id="food">
-    <button>
-        <a href="/food">Food</a>
-    </button>
+    <h1 class="nutrition">Nutrition Calculator</h1>
+    <h2 class="calories">Get your calories here!</h2>
+
+    <main>
+        <form action="/food" method="POST">
+            <label for="food">Enter Food:</label>
+            <input type="text" name="food" id="food" placeholder="E.g., Pizza, Grilled Chicken, Oatmeal, etc." required>
+            <button type="submit">Calculate calories</button>
+        </form>
+    </main>
 
 
 </body>

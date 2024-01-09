@@ -1,0 +1,49 @@
+/* Reset margin and padding for body and list elements */
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+  }
+
+/* Apply background */
+body {
+    background: rgb(20, 19, 19);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}
+
+.nutrition, .calories {
+    color: teal;
+    text-align: center; /* Center text horizontally */
+    margin-bottom: 20px; /* Add some spacing between headings and input/button */
+}
+
+label {
+    color: teal; /* Set label text color */
+    font-size: 18px; /* Set label font size */
+    margin-bottom: 10px; /* Add spacing below the label */
+    display: block; /* Make labels block-level elements for proper spacing */
+}
+
+/* Style the input and button as needed */
+input[type="text"], button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px; /* Add spacing between input and button */
+}
+
+button {
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: darkcyan;
+}
