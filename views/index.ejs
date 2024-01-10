@@ -41,12 +41,13 @@
                         items.forEach(item => {
                             // For each item, append its nutrition information to the HTML string
                             nutritionHTML += `
-                                div class="nutrition-item">
-                                <h3>${item.name}</h3>
-                                <p>Calories: ${item.calories.toFixed(2)}</p>
-                                <p>Protein: ${item.protein_g.toFixed(2)}g</p>
-                                <p>Fat: ${item.fat_total_g.toFixed(2)}g</p>
-                                <p>Carbohydrates: ${item.carbohydrates_total_g.toFixed(2)}g</p>
+                                <div class="nutrition-item"> <!-- Enclose each item's details in a div -->
+                                    <h3>${item.name}</h3>
+                                    <p>Calories: ${item.calories.toFixed(2)}</p>
+                                    <p>Protein: ${item.protein_g.toFixed(2)}g</p>
+                                    <p>Fat: ${item.fat_total_g.toFixed(2)}g</p>
+                                    <p>Carbohydrates: ${item.carbohydrates_total_g.toFixed(2)}g</p>
+                                </div>
                                 <hr>
                             `;
                         });
