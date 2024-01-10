@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 // const request = require('request');
 const axios = require('axios'); // Import axios
-const PORT = 2121 || process.env.PORT;
-
+const PORT = process.env.PORT || 2121 ;
+require('dotenv').config({ path: './config/.env' }); // Import dotenv and configure it to load values from .env file
 
 // Set up the Routes
 const mainRoutes = require('./routes/main');
@@ -37,6 +37,11 @@ app.get('/getNutrition', (req, res) => {
     })
     .catch(error => {
         console.error('Error fetching nutrition data:', error);
+        // Log more details of the error
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+
         res.status(500).json({ error: 'Error fetching nutrition data' }); // Send error message to client
     });
 });

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition Calculator</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1 class="nutrition">Nutrition Calculator</h1>
@@ -31,17 +32,26 @@
 
                 const foodQuery = document.getElementById('food').value;
 
-                fetch(`/getNutrition?food=${encodeURIComponent(foodQuery)}`)
-                    .then(response => response.json())
-                    .then(data => {
+                // Use Axios for the HTTP request
+                axios.get(`/getNutrition?food=${encodeURIComponent(foodQuery)}`)
+                    .then(response => {
+                        const items = response.data.items; // Get the items array from the response
                         // Handle and display nutrition data here
-                        const nutritionHTML = `
-                            <p>Calories: ${data.calories.toFixed(2)}</p>
-                            <p>Protein: ${data.protein.toFixed(2)}g</p>
-                            <p>Fat: ${data.fat.toFixed(2)}g</p>
-                            <p>Carbohydrates: ${data.carbohydrates.toFixed(2)}g</p>
-                        `;
-                        nutritionResult.innerHTML = nutritionHTML;
+                        let nutritionHTML = '';
+                        items.forEach(item => {
+                            // For each item, append its nutrition information to the HTML string
+                            nutritionHTML += `
+                                div class="nutrition-item">
+                                <h3>${item.name}</h3>
+                                <p>Calories: ${item.calories.toFixed(2)}</p>
+                                <p>Protein: ${item.protein_g.toFixed(2)}g</p>
+                                <p>Fat: ${item.fat_total_g.toFixed(2)}g</p>
+                                <p>Carbohydrates: ${item.carbohydrates_total_g.toFixed(2)}g</p>
+                                <hr>
+                            `;
+                        });
+
+                        nutritionResult.innerHTML = nutritionHTML; // Update the inner HTML of the result div
                     })
                     .catch(error => {
                         console.error('Error fetching nutrition data:', error);
