@@ -1,7 +1,6 @@
 // Set up Express app
 const express = require('express');
 const app = express();
-// const request = require('request');
 const axios = require('axios'); // Import axios
 const PORT = process.env.PORT || 2121 ;
 require('dotenv').config({ path: './config/.env' }); // Import dotenv and configure it to load values from .env file
@@ -20,7 +19,7 @@ app.use(express.json());
 // Use Routes
 app.use('/', mainRoutes);
 
-
+// TODO implement this GET request using the Routes & Controllers pattern
 // Set up GET request to Nutrition API
 app.get('/getNutrition', (req, res) => {
     const query = req.query.food;
