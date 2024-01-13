@@ -19,7 +19,7 @@ app.use(express.json());
 // Use Routes
 app.use('/', mainRoutes);
 
-// TODO implement this GET request using the Routes & Controllers pattern
+// TODO implement this GET request using the Routes & Controllers (MVC architecture)
 // Set up GET request to Nutrition API
 app.get('/getNutrition', (req, res) => {
     const query = req.query.food;
